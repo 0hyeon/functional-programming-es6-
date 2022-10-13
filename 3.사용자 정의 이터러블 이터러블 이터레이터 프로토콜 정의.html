@@ -13,9 +13,9 @@
     },
   };
   for (const a of document.querySelectorAll("*")) console.log(a);
-  const all = document.querySelectorAll("*");
-  let iter3 = all[Symbol.iterator]();
-  console.log(iter3.next());
+  const all = document.querySelectorAll("*"); //배열이여서가아니라
+  let iter3 = all[Symbol.iterator](); //심볼이테레이터가 적용이 되어있기 때문
+  console.log(iter3.next()); //안에있는 값들을 리턴
   console.log(iter3.next());
   console.log(iter3.next());
 </script>
