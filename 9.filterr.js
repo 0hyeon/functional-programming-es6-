@@ -8,7 +8,7 @@ const products = [
 // for (const p of products) {
 //     names.push(p.name);
 // }
-const map = (f, iter) => {
+export const map = (f, iter) => {
   //함수,products
   let res = [];
   for (const a of iter) {
@@ -16,7 +16,7 @@ const map = (f, iter) => {
   }
   return res;
 };
-const filter = (f, products) => {
+export const filter = (f, products) => {
   //f = 보조함수에게 조건을 위임
   let res = [];
   for (const a of products) {

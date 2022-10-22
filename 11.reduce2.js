@@ -7,7 +7,7 @@ const products = [
 ];
 
 //products를 활용한 리듀서
-const reduce = (f, acc, iter) => {
+export const reduce = (f, acc, iter) => {
   if (!iter) {
     iter = acc[Symbol.iterator]();
     acc = iter.next().value; //acc를 만듬
