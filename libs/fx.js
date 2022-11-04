@@ -26,3 +26,10 @@ const reduce = (f, acc, iter) => {
   }
   return acc;
 };
+
+module.exports = {
+  log,
+  map,
+  filter,
+  reduce
+}
