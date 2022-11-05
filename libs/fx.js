@@ -26,10 +26,11 @@ const reduce = (f, acc, iter) => {
   }
   return acc;
 };
-
+const add = (a, b) => a + b;
 module.exports = {
   log,
   map,
   filter,
-  reduce
+  reduce,
+  add
 }
