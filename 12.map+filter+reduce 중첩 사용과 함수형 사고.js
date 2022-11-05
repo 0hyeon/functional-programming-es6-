@@ -1,4 +1,4 @@
-const fx = require("./libs/fx.js");
+const {log, map,filter,reduce} = require("./libs/fx.js");
 const products = [
     { name: "반팔티", price: 15000 },
     { name: "긴팔", price: 20000 },
@@ -7,22 +7,22 @@ const products = [
     { name: "바지", price: 25000 },
   ];
   //가격을 뽑는 map함수
-  fx.log(fx.map((p) => p.price, products));
+  log(map((p) => p.price, products));
   //filter를 적용한 map함수
-  fx.log(
-    fx.map(
+  log(
+    map(
       (p) => p.price,
-      fx.filter((p) => p.price < 20000, products)
+      filter((p) => p.price < 20000, products)
     )
   );
   //reducer를적용한 복합함수
   const add = (a, b) => a + b;
-  fx.log(
-    fx.reduce(//합치고
+  log(
+    reduce(//합치고
       add,
-      fx.map(//맵을하고
+      map(//맵을하고
         (p) => p.price,
-        fx.filter((p) => p.price < 20000, products)//필터하고
+        filter((p) => p.price < 20000, products)//필터하고
       )
     )
   );
