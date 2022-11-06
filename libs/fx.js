@@ -1,6 +1,7 @@
 const log = console.log;
-const curry = f => //함수를 받아서 
-    (a, ..._) => _.length ? f(a,..._) : (..._) => f(a,..._);//인자가 두개일경우 실행되는 함수
+
+const curry = f => (a, ..._) => _.length ? f(a,..._) : (..._) => f(a,..._);//인자가 두개일경우 실행되는 함수
+
 const map = curry((f, iter) => {
   //map((p) => p.price, products)
   let res = [];
@@ -30,12 +31,15 @@ const reduce = curry((f, acc, iter) => {
 });
 const add = (a, b) => a + b;
 const products = [
-  { name: "반팔티", price: 15000 },
-  { name: "긴팔", price: 20000 },
-  { name: "핸드폰케이스", price: 15000 },
-  { name: "후드티", price: 30000 },
-  { name: "바지", price: 25000 },
+  { name: "반팔티", price: 15000, quanity: 1 },
+  { name: "긴팔", price: 20000, quanity: 2 },
+  { name: "핸드폰케이스", price: 15000, quanity: 3 },
+  { name: "후드티", price: 30000, quanity: 4 },
+  { name: "바지", price: 25000, quanity: 5 },
 ];
+const go = (...args) => reduce((a,f)=> f(a),args);//a : 시작값,  f는 다음값 
+
+const pipe = (f,...fs) => (...as) => go(f(...as), ...fs);
 module.exports = {
   products,
   log,
@@ -43,5 +47,7 @@ module.exports = {
   filter,
   reduce,
   add,
-  curry
+  curry,
+  go,
+  pipe
 }
