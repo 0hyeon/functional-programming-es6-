@@ -18,9 +18,9 @@ const products = [
   //reducer를적용한 복합함수
   const add = (a, b) => a + b;
   log(
-    reduce(//합치고
+    reduce(
       add,
-      map(//맵을하고
+      map(
         (p) => p.price,
         filter((p) => p.price < 20000, products)//필터하고
       )

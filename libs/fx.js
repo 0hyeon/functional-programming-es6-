@@ -1,21 +1,23 @@
 const log = console.log;
-const map = (f, iter) => {
+const curry = f => //함수를 받아서 
+    (a, ..._) => _.length ? f(a,..._) : (..._) => f(a,..._);//인자가 두개일경우 실행되는 함수
+const map = curry((f, iter) => {
   //map((p) => p.price, products)
   let res = [];
   for (const a of iter) {
     res.push(f(a));
   }
   return res;
-};
-const filter = (f, products) => {
+});
+const filter = curry((f, products) => {
   //f = 보조함수에게 조건을 위임
   let res = [];
   for (const a of products) {
     if (f(a)) res.push(a); // if (a.price <= 20000)
   }
   return res;
-};
-const reduce = (f, acc, iter) => {
+});
+const reduce = curry((f, acc, iter) => {
   //add함수,초기값, 데이터배열
   if (!iter) {
     iter = acc[Symbol.iterator]();
@@ -25,7 +27,7 @@ const reduce = (f, acc, iter) => {
     acc = f(acc, a); //f안에 인자두개는
   }
   return acc;
-};
+});
 const add = (a, b) => a + b;
 const products = [
   { name: "반팔티", price: 15000 },
@@ -40,5 +42,6 @@ module.exports = {
   map,
   filter,
   reduce,
-  add
+  add,
+  curry
 }
