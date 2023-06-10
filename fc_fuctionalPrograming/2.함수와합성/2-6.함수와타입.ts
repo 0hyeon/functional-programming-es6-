@@ -1,4 +1,4 @@
-function getPrices(name: string): number | undefined {
+export function getPrices(name: string): number | undefined {
   if (name === "tomato") {
     return 7000;
   } else if (name === "orange") {
