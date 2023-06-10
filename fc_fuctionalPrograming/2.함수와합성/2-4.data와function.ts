@@ -1,4 +1,7 @@
 let totalPrice = 0;
+//이전까지는 totalPrice를 어떻게 계산할건지에 대해 초첨을 맞췄음
+//이제부터는 순수함수 위주로 구현하려고함.
+
 function addTomato() {
   return 7000;
 }
@@ -19,6 +22,7 @@ function list2() {
   return addTomato() + addTomato();
 }
 //오렌지 100상자는 더이상 백번 함수호출하지 않아도 괜찮게됨
+//index.ts를변경하더라도
 function list3() {
   return addTomato() * 100;
 }
@@ -39,6 +43,7 @@ function getPrice(name: string) {
     return 8000;
   }
 }
+
 //정의역에 값에 치역을 대입함
 const isEven = {
   tomaoto: true,
