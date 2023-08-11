@@ -23,7 +23,7 @@ const reduce = curry((f, acc, iter) => {
   if (!iter) {
     iter = acc[Symbol.iterator]();
     acc = iter.next().value; //acc를 만듬
-  }
+  }//iter 1번값을 시작값세팅 
   for (const a of iter) {
     acc = f(acc, a); //f안에 인자두개는
   }
