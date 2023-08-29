@@ -1,13 +1,17 @@
 //값이 부재일경우 비슷한 코드 반복을 리팩토링
+//if는 null undifined 뿐만아니라 참거짓을 판별
+//if문이 어떻게 사용된 맥락을 보려면 같이고려해봐야할이다
+//부수적인 맥락을 파악하려면 type을 신경써야
 import { cart, Item } from "../3.여러개일수있는값/cart";
 import * as O from "./4-6-1.if문의합성";
 const stockItem = (item: Item): string => {
   const optionDiscountPrice = O.fromUndefined(item.discountPrice);
+  const discountPrice = O.getOrElse(optionDiscountPrice, 0);
+
   let saleText = "";
-  let discountPrice = 0;
-  if (item.discountPrice !== undefined) {
-    saleText = `${item.discountPrice}원 할인`;
-    discountPrice = item.discountPrice;
+  // let discountPrice = 0;
+  if (O.isSome(optionDiscountPrice)) {
+    saleText = `${optionDiscountPrice}원 할인`;
   }
 
   return `
@@ -54,7 +58,8 @@ const totalPrice = (list: Array<Item>): string => {
   );
 
   const totalDiscountPrice = totalCalculator(list, (item) => {
-    let discountPrice = 0;
+    //item.discountPrice /> O.fromundefined($) /> O.getOrElse($,0) 파이프라인 함수합성
+    let discountPrice = O.getOrElse(O.fromUndefined(item.discountPrice), 0);
     if (item.discountPrice !== undefined) {
       discountPrice = item.discountPrice;
     }
