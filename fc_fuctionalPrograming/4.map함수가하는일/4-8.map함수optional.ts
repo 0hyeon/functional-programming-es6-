@@ -1,18 +1,36 @@
 import * as O from "./4-6-1.if문의합성";
 import { cart, Item } from "../3.여러개일수있는값/cart";
 const stockItem = (item: Item): string => {
+  // 4)
   const optionDiscountPrice = O.fromUndefined(item.discountPrice);
   const discountPrice = O.getOrElse(optionDiscountPrice, 0);
-  const optionSaleText = O.map(
+  const saleText = O.mapOrElse(
     optionDiscountPrice,
-    (discountPrice) => `${discountPrice} 원 할인`
+    (discountPrice) => `${discountPrice} 원 할인`,
+    ""
   );
-  let saleText = O.getOrElse(optionSaleText, "");
+  // 3)
+  // const optionDiscountPrice = O.fromUndefined(item.discountPrice);
+  // const discountPrice = O.getOrElse(optionDiscountPrice, 0);
+  // const optionSaleText = O.map(
+  //   optionDiscountPrice,
+  //   (discountPrice) => `${discountPrice} 원 할인`
+  // );
+  // let saleText = O.getOrElse(optionSaleText, "");
 
+  // 2)
+  // const optionDiscountPrice = O.fromUndefined(item.discountPrice);
   //   let saleText = "";
   //   if (O.isSome(optionDiscountPrice)) {
   //     saleText = `${optionDiscountPrice}원 할인`;
   //   }
+  // 1)
+  // let saleText = "";
+  // let discountPrice = 0;
+  // if (item.discountPrice !== undefined) {
+  //   discountPrice = item.discountPrice;
+  //   saleText = `${discountPrice}원 할인`;
+  // }
 
   return `
           <li>

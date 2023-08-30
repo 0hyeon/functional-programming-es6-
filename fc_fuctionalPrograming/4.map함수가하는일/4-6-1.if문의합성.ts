@@ -73,3 +73,17 @@ export const map = <A, B>(oa: Option<A>, f: (a: A) => B): Option<B> => {
   //값이 있으면 값을 함수에 적용한다.
   return some(f(oa.value));
 };
+// const optionDiscountPrice = O.fromUndefined(item.discountPrice);
+// const discountPrice = O.getOrElse(optionDiscountPrice, 0);
+// O.map(
+//   optionDiscountPrice,
+//   (discountPrice) => `${discountPrice} 원 할인`
+// );
+
+export const mapOrElse = <A, B>(
+  oa: Option<A>,
+  f: (a: A) => B,
+  defaultValue: B
+): B => {
+  return getOrElse(map(oa, f), defaultValue);
+};
