@@ -23,14 +23,13 @@ export const map = <A, B>(array: Array<A>, f: (a: A) => B): Array<B> => {
   }
   return result;
 };
-//이게뭐지...
-
 const main = () => {
   const numbers = [1, 2, 3];
   const isEven = (x: number) => x % 2 === 0;
 
   //1).짝수를 나타내는 일반적인 표현
   map(numbers, isEven);
+  numbers.map(isEven);
 
   //2).커링된 맵함수
   //curriedMap :: Array<A> => ((A=>B))
@@ -42,8 +41,6 @@ const main = () => {
   numbers.map(isEven); //인스턴스로서 맵을 호출
 
   //던간다하다
-  const map_ = curry2(flip(map)); //작은 함수들을 합산해서 더큰조합
+  const map_ = curry2(flip(map)); //map의 순서를 뒤집고 인자하나씩 부분적용
   map_(isEven)(numbers); //인자의 순서를 바꿔서
-  //어질어질하다. 낮설다.
-  //자주보면? 익숙해진다. 연습권유
 };
