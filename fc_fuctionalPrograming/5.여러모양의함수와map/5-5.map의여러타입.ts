@@ -1,3 +1,4 @@
+import * as O from "../4.map함수가하는일/4-6-1.if문의합성";
 // export const map = <A, B>(oa: Option<A>, f: (a: A) => B): Option<B> => {
 //   if (isNone(oa)) return oa;
 //   return some(f(oa.value));
@@ -40,7 +41,22 @@ const main = () => {
   //Array<A>.map ~> (A => B) => Array<B>
   numbers.map(isEven); //인스턴스로서 맵을 호출
 
-  //던간다하다
-  const map_ = curry2(flip(map)); //map의 순서를 뒤집고 인자하나씩 부분적용
+  //map_ :: (A=>B) => Array<A> => Array<B>
+  const map_ = curry2(flip(map));
   map_(isEven)(numbers); //인자의 순서를 바꿔서
+
+  //isEven :: number => boolean
+  //mapIsEven :: Array<number> => boolean
+  const mapIsEven = map_(isEven);
+
+  isEven(42);
+  isEven(7);
+  mapIsEven(numbers);
+  mapIsEven([]);
+  mapIsEven([42]);
+
+  const omap = curry2(flip(O.map));
+  const optionIsEven = omap(isEven);
+  optionIsEven(O.some(42));
+  optionIsEven(O.none());
 };
