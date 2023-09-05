@@ -59,4 +59,6 @@ const main = () => {
   const optionIsEven = omap(isEven);
   optionIsEven(O.some(42));
   optionIsEven(O.none());
+  //부수효과를 찾아내고, 이것을분리해서 공통적인 방법으로 추상화를 하는 두번째 목적
+  //커링된 Map 함수덕분에 순순한 함수를 서로다른 부수효과를 다룰수있어  다양한 부수효과를 범용적으로 다룰 수 있다.
 };
