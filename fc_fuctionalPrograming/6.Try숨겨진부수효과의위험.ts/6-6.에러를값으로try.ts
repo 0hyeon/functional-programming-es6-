@@ -48,4 +48,6 @@ export const getOrElse = <E, R>(
   //error 타입의 값을 사용하면 활용도가 더 높을것이다.
   if (isFailed(ta)) return defaultValue(ta.error);
   return ta.result;
+
+  //다음시간은 언제옵션을 쓰고 언제 try를 써야하는지 알아보자
 };

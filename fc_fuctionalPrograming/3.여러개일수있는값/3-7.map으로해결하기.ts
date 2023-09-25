@@ -1,4 +1,4 @@
-import { Item, cart } from "./cart";
+import { Item, cart } from "../cart";
 
 //품절안된아이템
 const stockItem = (item: Item): string => `
