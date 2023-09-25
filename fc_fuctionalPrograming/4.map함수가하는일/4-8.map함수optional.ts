@@ -31,7 +31,6 @@ const stockItem = (item: Item): string => {
   //   discountPrice = item.discountPrice;
   //   saleText = `${discountPrice}원 할인`;
   // }
-
   return `
           <li>
               <h2>${item.name}</h2>

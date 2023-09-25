@@ -71,6 +71,8 @@ export const map = <A, B>(oa: Option<A>, f: (a: A) => B): Option<B> => {
   //값이 없으면 값이 없는 상태를 유지한다.
   if (isNone(oa)) return oa;
   //값이 있으면 값을 함수에 적용한다.
+  //특정타입을 옵션으로 만드는 함수를 만들었기 때문에
+  //some을 감싸서
   return some(f(oa.value));
 };
 // const optionDiscountPrice = O.fromUndefined(item.discountPrice);

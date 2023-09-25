@@ -5,15 +5,14 @@
 import { cart, Item } from "../3.여러개일수있는값/cart";
 import * as O from "./4-6-1.if문의합성";
 const stockItem = (item: Item): string => {
-  const optionDiscountPrice = O.fromUndefined(item.discountPrice);
-  const discountPrice = O.getOrElse(optionDiscountPrice, 0);
-
+  const optionDiscountPrice = O.fromUndefined(item.discountPrice); //값의부재를파악 some(a) | none을 반환
+  const discountPrice = O.getOrElse(optionDiscountPrice, 0); //값이없다면 default값
   let saleText = "";
   // let discountPrice = 0;
   if (O.isSome(optionDiscountPrice)) {
+    //응용해서 다른값을 만들기 때문에 getOrElse로 구현 할수없다.
     saleText = `${optionDiscountPrice}원 할인`;
   }
-
   return `
         <li>
             <h2>${item.name}</h2>
