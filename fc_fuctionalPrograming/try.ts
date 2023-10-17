@@ -57,3 +57,21 @@ export const map = <E, A, B>(ta: Try<E, A>, f: (a: A) => B): Try<E, B> => {
   if (isFailed(ta)) return ta;
   return success(f(ta.result));
 };
+
+//Array<T.Try<ParsedError,ParsedItem>> => Array<ParsedItem>
+//성공한 값만 남겨야 하기 때문에 keepsuccess라고 지어보자
+//특정타입에만 동작할필요는 없기때문에 에러,성공을 제네릭으로 만든다
+export const KeepSuccess = <E, R>(tas: Array<Try<E, R>>): Array<R> => {
+  //배열을 배열로 구현한것이니 Array에 map을 고려해볼수도있다. 그러나,
+  //map의 구조분해 성질때문에 문제가 있다. 에러일때는 undifined를 리턴하기때문에 문제
+  //flatmap은 map과 타입이 유사하지만 인자로받는 값을 배열을 리턴
+  //1.맵함수가 배열을 리턴하도록 만들기
+  //2.실패시 빈배열
+  const ret = tas.flatMap((ta) => {
+    if (isSuccess(ta)) return [ta.result]; //성공시
+    else return []; //실패시 빈배열
+  });
+  return ret;
+};
+//flatMap :: (A=> Array<B>) => (Array<A> => Array<B>)
+//map     :: (A=> B)        => (Array<A> => Array<B>)
