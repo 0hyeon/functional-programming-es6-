@@ -68,10 +68,20 @@ export const KeepSuccess = <E, R>(tas: Array<Try<E, R>>): Array<R> => {
   //1.맵함수가 배열을 리턴하도록 만들기
   //2.실패시 빈배열
   const ret = tas.flatMap((ta) => {
-    if (isSuccess(ta)) return [ta.result]; //성공시
+    if (isSuccess(ta)) return [ta.result];
+    //값이 무엇이 되어야하는가 => 선언적 사고
     else return []; //실패시 빈배열
   });
   return ret;
 };
 //flatMap :: (A=> Array<B>) => (Array<A> => Array<B>)
 //map     :: (A=> B)        => (Array<A> => Array<B>)
+
+// 명령형 vs 선언형
+export const KeepSuccessWithFor = <E, R>(tas: Array<Try<E, R>>): Array<R> => {
+  const ret: Array<R> = [];
+  for (const ta of tas) {
+    if (isSuccess(ta)) ret.push(ta.result); //값누적변수
+  }
+  return ret;
+};
