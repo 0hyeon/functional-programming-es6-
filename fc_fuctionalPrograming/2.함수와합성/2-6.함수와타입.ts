@@ -37,4 +37,4 @@ function isExpensivePrice(name: string): boolean {
 //정의역과 공역이 일치하면 계속해서 함수를 합성하는 고차함수를 만들수 있다
 
 //위함수를 compose를 통해서 표현가능
-//export const isExpensivePrice = compose(isExpensive,getPrices)
+// export const isExpensivePrice = compose(isExpensive,getPrices)

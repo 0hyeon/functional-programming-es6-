@@ -7,19 +7,11 @@ export const curry2 =
   (a: A) =>
   (b: B): C =>
     f(a, b);
-
-const curry2_prac = <A, B, C>(f: (a: A, b: B) => C) => {
-  (a: A) =>
-    (b: B): C =>
-      f(a, b);
-};
 export const flip =
   <A, B, C>(f: (a: A, b: B) => C) =>
   (b: B, a: A): C =>
     f(a, b);
-
 // Array<A> = A[] 같은표현
-
 //표기법
 //map :: (Array<A>, (A=>B)) => Array<B>
 export const map = <A, B>(array: Array<A>, f: (a: A) => B): Array<B> => {

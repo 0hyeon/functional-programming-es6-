@@ -33,14 +33,27 @@ const n1: Option<number> = { _tag: "Some", value: 1 };
 
 //값을 조금더 쉽게만들기위해 some none을 만들어본다.
 //A와 유니온에 undefined를 사용하는대신 굳이이렇게 사용하는이유는 타입을 정확하게하기위해
-export const some = <A>(value: A): Option<A> => ({ _tag: "Some", value });
-export const none = (): Option<never> => ({ _tag: "None" });
 
-//주어진 Option타입의 값이 Some타입인지 None타입인지 알게만드는것도 중요한데요,
+// export const some2 = <A>(value: A): Option<A> => { _tag: "Some", value } //객체를 반환하지 않고 return을 반환할때 객체만 감싼다, 외부 범위의 변수나 상태를 참조거하거나 수정할때 클로저를 형성하고 외부변수에 접근하게할때 객체만
+export const some = <A>(value: A): Option<A> => ({ _tag: "Some", value }); //새로운 객체를 생성하고 반환
+export const none = (): Option<never> => ({ _tag: "None" }); //함수가 아무것도 반환하지않을때 None을 사용
+
+//주어진 Option타입의 값이 Some타입인지 None타입인지 알게만드는것도 중요
 //타입을 식별하는 태그필드를 사용해서 Some타입인지 확인한다.
 //some타입인지 알아보는 함수작성
 export const isSome = <A>(oa: Option<A>): oa is Some<A> => oa._tag === "Some";
 export const isNone = <A>(oa: Option<A>): oa is None => oa._tag === "None";
+//some 및 none 함수는 Option 타입과 관련이 있으며, 성공과 실패를 나타내는 두 가지 가능한 값인 Some 및 None 객체를 생성하고 반환합니다. 반면, isSome 및 isNone 함수는 주어진 Option 객체가 Some 또는 None인지 확인하는 함수입니다.
+
+// 이런식으로 사용
+// const optionDiscountPrice = fromUndefined(item.discountPrice); //값의부재를파악 some(a) | none을 반환
+// const discountPrice = getOrElse(optionDiscountPrice, 0); //값이없다면 default값
+// let saleText = "";
+// // let discountPrice = 0;
+// if (isSome(optionDiscountPrice)) {
+//   //응용해서 다른값을 만들기 때문에 getOrElse로 구현 할수없다.
+//   saleText = `${optionDiscountPrice}원 할인`;
+// }
 
 //옵션을 사용하기위한 기본준비를 마쳤다.
 

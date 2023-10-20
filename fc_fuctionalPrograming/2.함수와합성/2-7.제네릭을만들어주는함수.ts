@@ -16,7 +16,7 @@ const idBoolean = (b: boolean) => {
   return b;
 };
 
-//모든타입벼로 따로 만들어야할까? 공통적이 있다.
+//모든타입별로 따로 만들어야할까? 공통적이 있다.
 //타입은 달라도 타입에 관계없이 구현은 모두 같다
 //함수 구현부에 모습이 자기 자신의 입력값을 돌려주는 모습이 같음
 //이러한 중복을 일반화시켜 제거한후 하나의 함수로 만들수있는 방법이 제네릭
@@ -45,8 +45,9 @@ const main = () => {
 };
 //isExpensive, getPrices를 매개변수화 시킨 컴포즈를 작성
 
-//export const compose = (isExpensive, getPrices) => (name) => {};
-
+const price2 = getPrices("tomato");
+export const compose_2 = (isExpensive, getPrices) => (name: string) => {};
+compose_2(isExpensive, price2)("tomato");
 // export const compose =
 //   (
 //     g: (y: number | undefined) => boolean,
@@ -75,6 +76,10 @@ export const compose =
 // compose의 타입은 다음과 같은형태
 // 쉽게 읽기위해서는
 // <A, B, C>((B) => C, f: (A) => B) => (A) => C
+
+// => isExpensive(getPrices("tomaoto"))
+//위함수를 compose를 통해서 표현가능
+const isExpensivePrice2 = compose(isExpensive, getPrices);
 
 function isExpensivePrice(name: string): boolean {
   return isExpensive(getPrices(name));
