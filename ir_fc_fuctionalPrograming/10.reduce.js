@@ -20,17 +20,13 @@ console.log(add(add(add(add(add(0, 1), 2), 3), 4), 5));
 //기대값 15
 
 //초기값 두번째인자 없이도 3번째인자 첫번째 index를 초기값으로 optional하게 쓰는법
-//f = add()
-//acc = 0
-//iter = [1, 2, 3, 4, 5]
 const reduce2 = (f, acc, iter) => {
   if (!iter) {
-    iter = acc[Symbol.iterator](); //acc를 iter로.
-    acc = iter.next().value; //acc를 iter에 첫번째값으로.
+    iter = acc[Symbol.iterator]();
+    acc = iter.next().value; //acc를 만듬
   }
   for (const a of iter) {
-    //[1, 2, 3, 4, 5]
-    acc = f(acc, a); //add(add(add(add(add(0, 1), 2), 3), 4), 5)
+    acc = f(acc, a);
   }
   return acc;
 };

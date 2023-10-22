@@ -10,6 +10,12 @@ const KeepSuccessWithFor = <E, R>(tas: Array<T.Try<E, R>>): Array<R> => {
   }
   return ret;
 };
+export const flatMap = <E, A, B>(
+  ta: T.Try<E, A>,
+  f: (a: A) => T.Try<E, B>
+): T.Try<E, B> => {
+  return flat(T.map(ta, f));
+};
 
 const KeepSuccess = <E, R>(tas: Array<T.Try<E, R>>): Array<R> => {
   const ret = tas.flatMap((ta) => {
@@ -38,9 +44,3 @@ const flat = <E, A>(tta: T.Try<E, T.Try<E, A>>): T.Try<E, A> => {
   return tta; //중첩돼있지만 타입이다른데 어떻게 되는건지 ? 혼돈이 당연
 }; //T.Try<E>가 같다는것에 중점을 둬한다.
 //성공했을때는 결과에있는 Try를사용해서 다음계산에 성공과 실패여부를 실행해볼수있지만 실패했을때는 에러만 남기때문에 다음실행이 중단되는걸 알수 있다.
-const flatMap = <E, A, B>(
-  ta: T.Try<E, A>,
-  f: (a: A) => T.Try<E, B>
-): T.Try<E, B> => {
-  return flat(T.map(ta, f));
-};
