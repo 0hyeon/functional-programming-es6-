@@ -31,17 +31,15 @@ const main = () => {
   const a = "test";
   const b = f(a);
   //b는 try타입이면서 결과를 넘버타입으로 사용
+  const c = g(b);
   //반면 g는 넘버타입을 입력받는 함수이기때문에 에러
   //인자를 넘버로 사용하려면 어떻게해야할까?
   //b = T.Try<string, number> , g(b : number) 불일치
 
-  //const c = g(b);
-
   //챕터5에서 map함수에 다양한모습 살펴보며 이런역할확인
   //우선 map으로 해보자
-
   const c2 = T.map(b, (b_) => g(b_));
-  const c3 = T.map(b, g); //??? 타입스크립트 때문에 된다고함(..?)
+  const c3 = T.map(b, g); //타입스크립트 에서는 함수g는인자가 하나인함수이고,  map이 인자로 사용하는함수도 인자가 하나이기  때문에 가능하다고 함
 
   //h함수도 마찬가지로 될까?
 
