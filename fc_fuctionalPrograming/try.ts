@@ -52,12 +52,6 @@ export const getOrElse = <E, R>(
   //다음시간은 언제옵션을 쓰고 언제 try를 써야하는지 알아보자
 };
 
-//성공했을때만 실행 실패했을땐
-export const map = <E, A, B>(ta: Try<E, A>, f: (a: A) => B): Try<E, B> => {
-  if (isFailed(ta)) return ta;
-  return success(f(ta.result));
-};
-
 //Array<T.Try<ParsedError,ParsedItem>> => Array<ParsedItem>
 //성공한 값만 남겨야 하기 때문에 keepsuccess라고 지어보자
 //특정타입에만 동작할필요는 없기때문에 에러,성공을 제네릭으로 만든다
@@ -84,4 +78,22 @@ export const KeepSuccessWithFor = <E, R>(tas: Array<Try<E, R>>): Array<R> => {
     if (isSuccess(ta)) ret.push(ta.result); //값누적변수
   }
   return ret;
+};
+
+// flat 함수:
+// flat 함수는 Try 타입을 받아서 내부의 Try 타입을 평평하게(flatten) 합니다. 즉, 중첩된 Try 타입을 해제하여 단일 Try 타입으로 만듭니다.
+// Try<E, A> 타입을 받아서, 성공(Try.Success)이면 내부의 Try 타입을 해제하여 Try<E, A>를 반환하고, 실패(Try.Failure)하면 그대로 반환합니다.
+const flat = <E, A>(tta: Try<E, Try<E, A>>): Try<E, A> => {
+  if (isSuccess(tta)) return tta.result;
+  return tta;
+};
+export const map = <E, A, B>(ta: Try<E, A>, f: (a: A) => B): Try<E, B> => {
+  if (isFailed(ta)) return ta;
+  return success(f(ta.result));
+};
+export const flatMap = <E, A, B>(
+  ta: Try<E, A>,
+  f: (a: A) => Try<E, B>
+): Try<E, B> => {
+  return flat(map(ta, f));
 };
