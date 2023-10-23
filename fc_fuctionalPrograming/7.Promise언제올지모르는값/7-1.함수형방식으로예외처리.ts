@@ -32,7 +32,16 @@ const main2 = () => {
   try {
     const a = "abc";
     const b = f(a);
-    const c = g(b);
+    // const c = g(b);
+    //코드중간에 에러를 처리하는걸 추가하기
+    //함수 g에서 에러가 발생할경우 코드 실행을 중단하지않고 3이라는 값으로 코드를 계속 실행하고싶을경우 어떻게?
+    //g함수의 에러처리를 별도로 감싸서 처리
+    let c;
+    try {
+      c = g(b);
+    } catch (e) {
+      c = 3; //에러일경우3 => getOrElse함수 사용으로처리
+    }
     const d = h(c);
     program(d);
   } catch (e) {
