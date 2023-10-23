@@ -37,12 +37,19 @@ const main = () => {
 
   //챕터5에서 map함수에 다양한모습 살펴보며 이런역할확인
   //우선 map으로 급한거부터 해결해보자
-  const c1 = T.map(b, (b_) => T.getOrElse(g(b_), (e) => 3));
-  //flatMap을 사용하면 아래와 같다
-  const c2 = T.flatMap(b, (b_) => T.success(T.getOrElse(g(b_), (e) => 3)));
-  const c3 = T.map(b, g); //타입스크립트 에서는 함수g는인자가 하나인함수이고,  map이 인자로 사용하는함수도 인자가 하나이기  때문에 가능하다고 함
 
-  //=> 코드를 이런방식으로 작성하라는 것이 아니라 이런방식을 알고있다면 해겨하기 쉬워지는 문제가 있을것.
+  const c0 = T.map(b, (b_) => g(b_));
+  //flatMap을 사용하면 아래와 같다
+  const c3 = T.map(b, g); //타입스크립트 에서는 함수g는인자가 하나인함수이고,  map이 인자로 사용하는함수도 인자가 하나이기  때문에 가능하다고 함
+  const c4 = T.flatMap(b, (b_) => g(b_)); //ok
+  const c1 = T.map(b, (b_) => T.getOrElse(g(b_), (e) => 3)); //에러가 생길경우 getOrElse로 3그러나, map함수 사용하여야
+  //왜냐하면 try를 리턴하는 표현식이 넘버를 리턴하기 때문에 이렇게 해야 에러가 안난다.
+  //프로그램의 외부표현을변경하기 보다는 표현식을 외부의 타입에 맞는것을 선호한다.
+  //flatMap을 유지하면서 타입을 유지하기가 어렵지는 않다.
+  //success를 할경우 인자를 제네릭으로 받고 트라이로 리턴한다. 리턴하는 함수를 감싸주면된다.
+  const c2 = T.flatMap(b, (b_) => T.success(T.getOrElse(g(b_), (e) => 3))); //(완성형) 에러가 생길경우 3 나머진 g함수정상작동
+
+  //=> 코드를 이런방식으로 작성하라는 것이 아니라 이런함수와 표현식위주의 코드방식을 알고있다면 해결하기 쉬워지는 문제가 있을것.
 
   const d = T.map(c3, (_c) => g(_c)); //error
 
@@ -51,7 +58,7 @@ const main = () => {
   //flatMap으로 해결 가능한다
 
   //두개에 부수효과를 하나의 부수효과로 합쳐주는 flatMap
-  const c4 = T.flatMap(b, (b_) => g(b_)); //ok
+
   const d1 = T.flatMap(c4, (c_) => h(c_));
 
   program(d1); //error program의 인자가 boolean이기 때문
