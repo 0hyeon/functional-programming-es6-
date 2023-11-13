@@ -16,7 +16,7 @@ type Failed<E> = {
 
 console.clear();
 
-export type Try<E, R> = Failed<E> | Success<R>;
+export type Try<E, R> = Failed<E> | Success<R>;//값이 성공할수도 실패할수도 있는 tryCatch
 
 //평범한값을 성공이나 실패로 나타내주는 함수로 만들어보자 이러한 함수가 없으면 _tag를 일일이 써줘야해서 번거로워서 만듦
 export const success = <R>(result: R): Try<never, R> => ({
@@ -84,7 +84,8 @@ export const KeepSuccessWithFor = <E, R>(tas: Array<Try<E, R>>): Array<R> => {
 // flat 함수는 Try 타입을 받아서 내부의 Try 타입을 평평하게(flatten) 합니다. 즉, 중첩된 Try 타입을 해제하여 단일 Try 타입으로 만듭니다.
 // Try<E, A> 타입을 받아서, 성공(Try.Success)이면 내부의 Try 타입을 해제하여 Try<E, A>를 반환하고, 실패(Try.Failure)하면 그대로 반환합니다.
 const flat = <E, A>(tta: Try<E, Try<E, A>>): Try<E, A> => {
-  if (isSuccess(tta)) return tta.result;
+  console.log(tta)//T.success(T.success(number))
+  if (isSuccess(tta)) return tta.result;//
   return tta;
 };
 export const map = <E, A, B>(ta: Try<E, A>, f: (a: A) => B): Try<E, B> => {

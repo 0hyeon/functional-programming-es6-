@@ -38,7 +38,7 @@ const main = () => {
   //챕터5에서 map함수에 다양한모습 살펴보며 이런역할확인
   //우선 map으로 급한거부터 해결해보자
 
-  const c0 = T.map(b, (b_) => g(b_));
+  const c0 = T.map(b, (b_) => g(b_));//된다 
   //flatMap을 사용하면 아래와 같다
   const c3 = T.map(b, g); //타입스크립트 에서는 함수g는인자가 하나인함수이고,  map이 인자로 사용하는함수도 인자가 하나이기  때문에 가능하다고 함
   const c4 = T.flatMap(b, (b_) => g(b_)); //ok
@@ -59,7 +59,7 @@ const main = () => {
 
   //두개에 부수효과를 하나의 부수효과로 합쳐주는 flatMap
 
-  const d1 = T.flatMap(c4, (c_) => h(c_));
+  const d1 = T.flatMap(c4, (c_) => h(c_));//c4+h조합 success(success(c_)) 인데 flatMap을 함으로서 success(c_)
 
   program(d1); //error program의 인자가 boolean이기 때문
   T.flatMap(d1, (d_) => program(d_)); //error
