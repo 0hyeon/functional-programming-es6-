@@ -18,23 +18,22 @@
 
 //ret은 return 타입을 대신할수있다고 한다.
 //함수g,h를 커링하면 이의미를 더 알수있다고함.
-
 //ret이 우리가 찾던 async타입
-
-type Async<A> = (ret:( x : A ) => void) => void
-//Async의 타입은 함수를 리턴
-
 //지난시간 id함수를 cps로 만들때 콜백함수를 마치 리턴 구문을 대체하는 함수를 생각해볼수도 있다고 설명 
-const f_before = (str: string):Async<number> => (ret) => {
-    setTimeout(() => {
-      console.log("비동기로 출력 :" + str);
-    }, 500); 
-    ret(str.length * 2)
-};
 //커링
 //커링된 해당 f,g,h 세함수는 어떤인자를 받으면 값을 즉시 리턴하는 대신
 //비동기로 값을 사용할 수 있도록 콜백함수를 리턴
+const f_before = (str: string):Async<number> => (ret) => {
+    setTimeout(() => {
+        console.log("비동기로 출력 :" + str);
+    }, 500); 
+    ret(str.length * 2)
+};
+//그리고 첫번째 인자를 입력했을때 리턴하는 이함수의 타입이 바로 우리가 찾는 Async의 타입 
+type Async<A> = (ret:( x : A ) => void) => void
+//Async의 타입은 함수를 리턴
 const f = (str: string):Async<number> => (ret) => {
+// const f = (str: string):Async<number> => (ret) => {
     setTimeout(() => {
       console.log("비동기로 출력 :" + str);
     }, 500); //비동기가 독립적으로 실행될때는 문제x
